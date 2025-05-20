@@ -21,4 +21,8 @@ int main() {
     cout << "Введите вершину v: ";
     cin >> v;
     unordered_set<int> Spissmesh;
+    for (int u : Vhodrebra[v]) Spissmesh.insert(u);
+    for (int u : Vihodddd[v]) Spissmesh.insert(u);
+    cout << "Количество смежных вершин: " << Spissmesh.size() << endl;
+    return 0;
 }
