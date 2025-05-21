@@ -5,17 +5,29 @@ using namespace std;
 
 int main() {
     setlocale(LC_ALL, "Russian");
-    int n, m; // n число вершин, m число рёбер
-    cout << "Количество вершин и рёбер: ";
+    int n, m; // n Г·ГЁГ±Г«Г® ГўГҐГ°ГёГЁГ­, m Г·ГЁГ±Г«Г® Г°ВёГЎГҐГ°
+    cout << "ГЉГ®Г«ГЁГ·ГҐГ±ГІГўГ® ГўГҐГ°ГёГЁГ­ ГЁ Г°ВёГЎГҐГ°: ";
     cin >> n >> m;
-    vector<vector<int>> Vhodrebra(n); // исходящие рёбра
-    vector<vector<int>> Vihodddd(n);  // Входящие рёбра
-    cout << "Ввод ребер(откуда куда):" << endl;
+    vector<vector<int>> Vhodrebra(n); // ГЁГ±ГµГ®Г¤ГїГ№ГЁГҐ Г°ВёГЎГ°Г 
+    vector<vector<int>> Vihodddd(n);  // Г‚ГµГ®Г¤ГїГ№ГЁГҐ Г°ВёГЎГ°Г 
+    cout << "Г‚ГўГ®Г¤ Г°ГҐГЎГҐГ°(Г®ГІГЄГіГ¤Г  ГЄГіГ¤Г ):" << endl;
     for (int i = 0; i < m; ++i) {
         int from, to;
         cin >> from >> to;
-        Vhodrebra[from].push_back(to); // Добав исходящее ребро
-        Vihodddd[to].push_back(from);  // Добав входящее ребро
+        Vhodrebra[from].push_back(to); // Г„Г®ГЎГ Гў ГЁГ±ГµГ®Г¤ГїГ№ГҐГҐ Г°ГҐГЎГ°Г®
+        Vihodddd[to].push_back(from);  // Г„Г®ГЎГ Гў ГўГµГ®Г¤ГїГ№ГҐГҐ Г°ГҐГЎГ°Г®
     }
     return 0;
+    cout << "РСЃС‚РѕРєРё РіСЂР°С„Р°: "; // РџРѕРёСЃРє РёСЃС‚РѕРєРѕРІ (РІРµСЂС€РёРЅ СЃ РЅСѓР»РµРІРѕР№ РїРѕР»СѓСЃС‚РµРїРµРЅСЊСЋ Р·Р°С…РѕРґР°)
+    bool flag = false;
+    for (int i = 0; i < n; ++i) {
+        if (Vihodddd[i].empty()) {  // Р•СЃР»Рё РЅРµС‚ РІС…РѕРґСЏС‰РёС… СЂС‘Р±РµСЂ
+            cout << i << " ";
+            flag = true;
+        }
+    }
+    if (!flag) {
+        cout << "РёРЎРўРћРєРѕРІ РЅРµС‚";
+    }
+    cout << endl;
 }
