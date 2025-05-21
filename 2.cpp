@@ -21,4 +21,18 @@ int main() {
     cout << "Какое ребро удалить(от куда до куда ребро): ";
     cin >> A >> B;
     return 0;
+    for (auto it = Vhodrebra[A].begin(); it != Vhodrebra[A].end(); ) { // Удаление из исходящих рёбер A
+    if (*it == B) {
+        it = Vhodrebra[A].erase(it);
+        break; // Так как рёбра ориентированные, можно прервать после первого найденного
+    }
+    else ++it;
+    }
+    for (auto it = Vihodddd[B].begin(); it != Vihodddd[B].end(); ) {  // Удаление из входящих рёбер B
+        if (*it == A) {
+            it = Vihodddd[B].erase(it);
+            break;
+        }
+        else ++it;
+    }    
 }
