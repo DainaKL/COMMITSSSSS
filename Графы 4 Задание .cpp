@@ -2,6 +2,14 @@
 #include <unordered_set>
 #include <vector>
 using namespace std;
+void obhod(int v, vector<bool>& posetil, const vector<vector<int>>& Vhodrebra) {
+    posetil[v] = true;
+    for (int sosed : Vhodrebra[v]) {//если на входной позиции есть то класс дойдет так доходя да каждой верш проверяем пока она может кудато свалить
+        if (!posetil[sosed]) {
+            obhod(sosed, posetil, Vhodrebra);
+        }
+    }
+}
 
 int main() {
     setlocale(LC_ALL, "Russian");
@@ -20,5 +28,7 @@ int main() {
     int verka;
     cout << "Какую вершину проверяем на недостижимость?: ";
     cin >> verka;
+    vector<bool> posetil(n, false);
+    obhod(verka, posetil, Vhodrebra);
     return 0;
 }
