@@ -5,26 +5,20 @@ using namespace std;
 
 int main() {
     setlocale(LC_ALL, "Russian");
-    int n, m; // n число вершин, m число рёбер
-    cout << "Количество вершин и рёбер: ";
+    int n, m; // n Г·ГЁГ±Г«Г® ГўГҐГ°ГёГЁГ­, m Г·ГЁГ±Г«Г® Г°ВёГЎГҐГ°
+    cout << "ГЉГ®Г«ГЁГ·ГҐГ±ГІГўГ® ГўГҐГ°ГёГЁГ­ ГЁ Г°ВёГЎГҐГ°: ";
     cin >> n >> m;
-    vector<vector<int>> Vhodrebra(n); // исходящие рёбра
-    vector<vector<int>> Vihodddd(n);  // Входящие рёбра
-    cout << "Ввод ребер(откуда куда):" << endl;
+    vector<vector<int>> Vhodrebra(n); // ГЁГ±ГµГ®Г¤ГїГ№ГЁГҐ Г°ВёГЎГ°Г 
+    vector<vector<int>> Vihodddd(n);  // Г‚ГµГ®Г¤ГїГ№ГЁГҐ Г°ВёГЎГ°Г 
+    cout << "Г‚ГўГ®Г¤ Г°ГҐГЎГҐГ°(Г®ГІГЄГіГ¤Г  ГЄГіГ¤Г ):" << endl;
     for (int i = 0; i < m; ++i) {
         int from, to;
         cin >> from >> to;
-        Vhodrebra[from].push_back(to); // Добав исходящее ребро
-        Vihodddd[to].push_back(from);  // Добав входящее ребро
+        Vhodrebra[from].push_back(to); // Г„Г®ГЎГ Гў ГЁГ±ГµГ®Г¤ГїГ№ГҐГҐ Г°ГҐГЎГ°Г®
+        Vihodddd[to].push_back(from);  // Г„Г®ГЎГ Гў ГўГµГ®Г¤ГїГ№ГҐГҐ Г°ГҐГЎГ°Г®
     }
-    int v;
-    cout << "Введите вершину v: ";
-    cin >> v;
-    unordered_set<int> Spissmesh;
-    for (int u : Vhodrebra[v]) Spissmesh.insert(u);
-    for (int u : Vihodddd[v]) Spissmesh.insert(u);
-
-    cout << "Количество смежных вершин: " << Spissmesh.size() << endl;
-
+    int A, B; // РЈРґР°Р»РµРЅРёРµ СЂРµР±СЂР° A -> B
+    cout << "РљР°РєРѕРµ СЂРµР±СЂРѕ СѓРґР°Р»РёС‚СЊ(РѕС‚ РєСѓРґР° РґРѕ РєСѓРґР° СЂРµР±СЂРѕ): ";
+    cin >> A >> B;
     return 0;
 }
