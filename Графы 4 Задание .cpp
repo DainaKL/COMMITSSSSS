@@ -30,5 +30,17 @@ int main() {
     cin >> verka;
     vector<bool> posetil(n, false);
     obhod(verka, posetil, Vhodrebra);
+    cout << "Недостижимые вершины: ";
+    bool flag = false;
+    for (int i = 0; i < n; ++i) {
+        if (!posetil[i] && i != verka) {
+            cout << i << " ";
+            flag = true;
+         }
+    }
+    if (!flag) {
+        cout << "все вершины достижимы";
+    }
+    cout << endl;    
     return 0;
 }
