@@ -35,4 +35,14 @@ int main() {
         }
         else ++it;
     }    
+    for (int i = 0; i < n; ++i) { // Вывод графа после удаления
+        cout << i;
+        for (int neighbor : Vhodrebra[i]) {
+            cout << neighbor << " ";
+        }
+        cout << endl;
+    }
+    
+    return 0;
+
 }
