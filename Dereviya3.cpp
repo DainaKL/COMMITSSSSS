@@ -54,31 +54,21 @@ tree* find(tree* tr, int x) {//ïîèñê
 
 void deleteNode(tree*& tr, tree* node) {
     if (!node) return;
-    if (!node->left || !node->right) { 
-        tree* child = node->left ? node->left : node->right; // Âûáèðàåì ñóùåñòâóþùåãî ðåá¸íêà
-        if (node->parent) { // Îáíîâëÿåì ññûëêó ó ðîäèòåëÿ óäàëÿåìîãî óçëà
-            if (node->parent->left == node)
-                node->parent->left = child; // Åñëè óäàëÿåìûé óçåë áûë ëåâûì ðåá¸íêîì
-            else
-                node->parent->right = child;
-        }
-        else {
-            tr = child;
-        }
+    deleteNode(tr, node->left); // Рекурсивно удаляем левое и правое поддеревья
+    deleteNode(tr, node->right);
 
-        if (child) // Îáíîâëÿåì ðîäèòåëÿ ó ðåá¸íêà
-            child->parent = node->parent;
-
-        delete node;
+    // Обновляем ссылку у родителя
+    if (node->parent) {
+        if (node->parent->left == node)
+            node->parent->left = nullptr;
+        else
+            node->parent->right = nullptr;
     }
     else {
-        tree* preemnik = node->right; // Èùåì ïðååìíèêà ÷òîáû óäàëèòü âñþ ÅÃÎ ÐÎÄÎÑËÎÂÍÓÞ ÎÏßÒÜ
-        while (preemnik->left)
-            preemnik = preemnik->left;
-
-        node->inf = preemnik->inf; // Êîïèðóåì çíà÷åíèå ïðååìíèêà â óäàëÿåìûé óçåë
-        deleteNode(tr, preemnik);  // Ðåêóðñèâíî óäàëÿåì ïðååìíèêà
+        tr = nullptr; // Если удаляем корень
     }
+
+    delete node; // Освобождаем память
 }
 
 void processPlemyanik(tree*& tr, int x) {
