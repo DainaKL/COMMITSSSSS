@@ -2,14 +2,14 @@
 #include <string>
 using namespace std;
 
-struct tree { //структура дерева
+struct tree { //Г±ГІГ°ГіГЄГІГіГ°Г  Г¤ГҐГ°ГҐГўГ 
     int inf;
     tree* right;
     tree* left;
     tree* parent;
 };
 
-tree* node(int x) { //начальный узел
+tree* node(int x) { //Г­Г Г·Г Г«ГјГ­Г»Г© ГіГ§ГҐГ«
     tree* n = new tree;
     n->inf = x;
     n->left = n->right = NULL;
@@ -17,25 +17,25 @@ tree* node(int x) { //начальный узел
     return n;
 }
 
-void insert(tree*& tr, int x) {//вставка
+void insert(tree*& tr, int x) {//ГўГ±ГІГ ГўГЄГ 
     tree* n = node(x);
-    if (!tr) tr = n; //если дерево пустое - корень
+    if (!tr) tr = n; //ГҐГ±Г«ГЁ Г¤ГҐГ°ГҐГўГ® ГЇГіГ±ГІГ®ГҐ - ГЄГ®Г°ГҐГ­Гј
     else {
         tree* y = tr;
-        while (y) { //ищем куда вставлять
-            if (n->inf > y->inf) //правая ветка
+        while (y) { //ГЁГ№ГҐГ¬ ГЄГіГ¤Г  ГўГ±ГІГ ГўГ«ГїГІГј
+            if (n->inf > y->inf) //ГЇГ°Г ГўГ Гї ГўГҐГІГЄГ 
                 if (y->right)
                     y = y->right;
                 else {
-                    n->parent = y; //узел становится правым ребенком
+                    n->parent = y; //ГіГ§ГҐГ« Г±ГІГ Г­Г®ГўГЁГІГ±Гї ГЇГ°Г ГўГ»Г¬ Г°ГҐГЎГҐГ­ГЄГ®Г¬
                     y->right = n;
                     break;
                 }
-            else if (n->inf < y->inf)//левая ветка
+            else if (n->inf < y->inf)//Г«ГҐГўГ Гї ГўГҐГІГЄГ 
                 if (y->left)
                     y = y->left;
                 else {
-                    n->parent = y;//узел становится левым ребенком
+                    n->parent = y;//ГіГ§ГҐГ« Г±ГІГ Г­Г®ГўГЁГІГ±Гї Г«ГҐГўГ»Г¬ Г°ГҐГЎГҐГ­ГЄГ®Г¬
                     y->left = n;
                     break;
                 }
@@ -43,22 +43,22 @@ void insert(tree*& tr, int x) {//вставка
     }
 }
 
-tree* find(tree* tr, int x) {//поиск
-    if (!tr || x == tr->inf)//нашли или дошли до конца ветки
+tree* find(tree* tr, int x) {//ГЇГ®ГЁГ±ГЄ
+    if (!tr || x == tr->inf)//Г­Г ГёГ«ГЁ ГЁГ«ГЁ Г¤Г®ГёГ«ГЁ Г¤Г® ГЄГ®Г­Г¶Г  ГўГҐГІГЄГЁ
         return tr;
     if (x < tr->inf)
-        return find(tr->left, x);//ищем по левой ветке
+        return find(tr->left, x);//ГЁГ№ГҐГ¬ ГЇГ® Г«ГҐГўГ®Г© ГўГҐГІГЄГҐ
     else
-        return find(tr->right, x);//ищем по правой ветке
+        return find(tr->right, x);//ГЁГ№ГҐГ¬ ГЇГ® ГЇГ°Г ГўГ®Г© ГўГҐГІГЄГҐ
 }
 
 void deleteNode(tree*& tr, tree* node) {
     if (!node) return;
     if (!node->left || !node->right) { 
-        tree* child = node->left ? node->left : node->right; // Выбираем существующего ребёнка
-        if (node->parent) { // Обновляем ссылку у родителя удаляемого узла
+        tree* child = node->left ? node->left : node->right; // Г‚Г»ГЎГЁГ°Г ГҐГ¬ Г±ГіГ№ГҐГ±ГІГўГіГѕГ№ГҐГЈГ® Г°ГҐГЎВёГ­ГЄГ 
+        if (node->parent) { // ГЋГЎГ­Г®ГўГ«ГїГҐГ¬ Г±Г±Г»Г«ГЄГі Гі Г°Г®Г¤ГЁГІГҐГ«Гї ГіГ¤Г Г«ГїГҐГ¬Г®ГЈГ® ГіГ§Г«Г 
             if (node->parent->left == node)
-                node->parent->left = child; // Если удаляемый узел был левым ребёнком
+                node->parent->left = child; // Г…Г±Г«ГЁ ГіГ¤Г Г«ГїГҐГ¬Г»Г© ГіГ§ГҐГ« ГЎГ»Г« Г«ГҐГўГ»Г¬ Г°ГҐГЎВёГ­ГЄГ®Г¬
             else
                 node->parent->right = child;
         }
@@ -66,26 +66,40 @@ void deleteNode(tree*& tr, tree* node) {
             tr = child;
         }
 
-        if (child) // Обновляем родителя у ребёнка
+        if (child) // ГЋГЎГ­Г®ГўГ«ГїГҐГ¬ Г°Г®Г¤ГЁГІГҐГ«Гї Гі Г°ГҐГЎВёГ­ГЄГ 
             child->parent = node->parent;
 
         delete node;
     }
     else {
-        tree* preemnik = node->right; // Ищем преемника чтобы удалить всю ЕГО РОДОСЛОВНУЮ ОПЯТЬ
+        tree* preemnik = node->right; // Г€Г№ГҐГ¬ ГЇГ°ГҐГҐГ¬Г­ГЁГЄГ  Г·ГІГ®ГЎГ» ГіГ¤Г Г«ГЁГІГј ГўГ±Гѕ Г…ГѓГЋ ГђГЋГ„ГЋГ‘Г‹ГЋГ‚ГЌГ“Гћ ГЋГЏГџГ’Гњ
         while (preemnik->left)
             preemnik = preemnik->left;
 
-        node->inf = preemnik->inf; // Копируем значение преемника в удаляемый узел
-        deleteNode(tr, preemnik);  // Рекурсивно удаляем преемника
+        node->inf = preemnik->inf; // ГЉГ®ГЇГЁГ°ГіГҐГ¬ Г§Г­Г Г·ГҐГ­ГЁГҐ ГЇГ°ГҐГҐГ¬Г­ГЁГЄГ  Гў ГіГ¤Г Г«ГїГҐГ¬Г»Г© ГіГ§ГҐГ«
+        deleteNode(tr, preemnik);  // ГђГҐГЄГіГ°Г±ГЁГўГ­Г® ГіГ¤Г Г«ГїГҐГ¬ ГЇГ°ГҐГҐГ¬Г­ГЁГЄГ 
     }
 }
 
 void processPlemyanik(tree*& tr, int x) {
-    tree* nodeX = find(tr, x);
-    tree* parent = nodeX->parent;
-    tree* uncle = (parent->left == nodeX) ? parent->right : parent->left;
-    deleteNode(tr, uncle->left);
+     tree* nodeX = find(tr, x);
+ if (!nodeX || !nodeX->parent) { // Р•СЃР»Рё СѓР·РµР» РЅРµ РЅР°Р№РґРµРЅ РёР»Рё СЌС‚Рѕ РєРѕСЂРµРЅСЊ (РЅРµС‚ СЂРѕРґРёС‚РµР»СЏ)
+     cout << "РќРµР»СЊР·СЏ СѓРґР°Р»РёС‚СЊ РїР»РµРјСЏРЅРЅРёРєРѕРІ Сѓ РєРѕСЂРЅСЏ РёР»Рё СѓР·Р»Р° РЅРµ СЃСѓС‰РµСЃС‚РІСѓРµС‚!" << endl;
+     return;
+ }
+ tree* parent = nodeX->parent;
+ tree* uncle = (parent->left == nodeX) ? parent->right : parent->left;
+ if (!uncle) { // Р•СЃР»Рё РЅРµС‚ РґСЏРґРё (Р° Р·РЅР°С‡РёС‚, Рё РїР»РµРјСЏРЅРЅРёРєРѕРІ)
+     cout << "РќРµС‚ РґСЏРґРё (Р° Р·РЅР°С‡РёС‚, Рё РїР»РµРјСЏРЅРЅРёРєРѕРІ)!" << endl;
+     return;
+ }
+ if (uncle->left) { // Р•СЃР»Рё Сѓ РґСЏРґРё РµСЃС‚СЊ Р»РµРІС‹Р№ РїР»РµРјСЏРЅРЅРёРє - СѓРґР°Р»СЏРµРј РµРіРѕ
+     deleteNode(tr, uncle->left);
+     cout << "Р›РµРІС‹Р№ РїР»РµРјСЏРЅРЅРёРє СѓРґР°Р»С‘РЅ." << endl;
+ }
+ else {
+     cout << "РЈ РґСЏРґРё РЅРµС‚ Р»РµРІРѕРіРѕ РїР»РµРјСЏРЅРЅРёРєР°!" << endl;
+ }
 }
 
 void printTree(tree* tr, int space = 0) {
@@ -100,24 +114,24 @@ int main() {
     setlocale(LC_ALL, "Russian");
 
     int n, x;
-    cout << "Количество элементов: ";
+    cout << "ГЉГ®Г«ГЁГ·ГҐГ±ГІГўГ® ГЅГ«ГҐГ¬ГҐГ­ГІГ®Гў: ";
     cin >> n;
 
     tree* tr = nullptr;
-    cout << "Элементы(ввод): ";
+    cout << "ГќГ«ГҐГ¬ГҐГ­ГІГ»(ГўГўГ®Г¤): ";
     for (int i = 0; i < n; i++) {
         cin >> x;
         insert(tr, x);
     }
 
-    cout << "Начальное древо: " <<endl;
+    cout << "ГЌГ Г·Г Г«ГјГ­Г®ГҐ Г¤Г°ГҐГўГ®: " <<endl;
     printTree(tr);
 
-    cout << "В каком узле удалить? ";
+    cout << "Г‚ ГЄГ ГЄГ®Г¬ ГіГ§Г«ГҐ ГіГ¤Г Г«ГЁГІГј? ";
     cin >> x;
     processPlemyanik(tr, x);
 
-    cout << "Древо после удаления: " << endl;
+    cout << "Г„Г°ГҐГўГ® ГЇГ®Г±Г«ГҐ ГіГ¤Г Г«ГҐГ­ГЁГї: " << endl;
     printTree(tr);
 
     return 0;
